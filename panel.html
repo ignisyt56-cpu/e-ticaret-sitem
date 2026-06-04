@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BeytoPazar | Hesabım</title>
+  <style>
+    :root{
+      --brand:#f27a1a;
+      --brand-dark:#df6d13;
+      --bg:#f7f7f7;
+      --card:#ffffff;
+      --text:#222;
+      --muted:#6b7280;
+      --line:#e8e8e8;
+      --green:#1fa971;
+      --red:#e23b3b;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --radius:16px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter,Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+    a{text-decoration:none;color:inherit}
+
+    /* HEADER */
+    .header{
+      background:#fff;
+      border-bottom:1px solid var(--line);
+      padding:0 24px;
+      height:64px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      position:sticky;top:0;z-index:100;
+    }
+    .brand{display:flex;align-items:center;gap:10px;cursor:pointer}
+    .brand-badge{
+      width:40px;height:40px;border-radius:14px 20px 14px 8px;
+      background:linear-gradient(135deg,#f27a1a,#ffb56d 55%,#ffd6a8);
+      display:grid;place-items:center;color:#fff;font-weight:900;font-size:15px;
+      box-shadow:0 8px 22px rgba(242,122,26,.28);transform:rotate(-2deg);
+    }
+    .brand strong{font-size:18px}
+    .brand span{font-size:12px;color:var(--muted);display:block}
+    .header-right{display:flex;align-items:center;gap:12px}
+    .back-btn{
+      background:var(--bg);border:1px solid var(--line);
+      color:var(--text);padding:8px 16px;border-radius:10px;
+      cursor:pointer;font-size:14px;font-weight:500;
+      transition:all .2s;
+    }
+    .back-btn:hover{background:var(--brand);color:#fff;border-color:var(--brand)}
+
+    /* LAYOUT */
+    .page{
+      max-width:1100px;
+      margin:32px auto;
+      padding:0 16px;
+      display:grid;
+      grid-template-columns:260px 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    /* SIDEBAR */
+    .sidebar{
+      background:#fff;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .user-info{
+      background:linear-gradient(135deg,#f27a1a,#df6d13);
+      padding:28px 20px;
+      color:#fff;
+      text-align:center;
+    }
+    .avatar{
+      width:72px;height:72px;border-radius:50%;
+      background:rgba(255,255,255,.25);
+      display:grid;place-items:center;
+      font-size:28px;margin:0 auto 12px;
+      border:3px solid rgba(255,255,255,.4);
+    }
+    .user-info strong{font-size:18px;display:block}
+    .user-info span{font-size:13px;opacity:.85}
+    .nav-menu{padding:12px 0}
+    .nav-item{
+      display:flex;align-items:center;gap:12px;
+      padding:14px 20px;cursor:pointer;
+      font-size:15px;font-weight:500;
+      transition:all .2s;border-left:3px solid transparent;
+    }
+    .nav-item:hover{background:var(--bg);color:var(--brand)}
+    .nav-item.active{background:#fff7f0;color:var(--brand);border-left-color:var(--brand)}
+    .nav-item .icon{font-size:18px;width:24px;text-align:center}
+    .nav-logout{
+      margin:8px 12px 16px;padding:12px;
+      background:#fff5f5;color:var(--red);
+      border:1px solid #fde8e8;border-radius:10px;
+      display:flex;align-items:center;gap:10px;
+      cursor:pointer;font-size:14px;font-weight:500;
+      transition:all .2s;
+    }
+    .nav-logout:hover{background:var(--red);color:#fff}
+
+    /* CONTENT */
+    .content{}
+    .section{
+      background:#fff;border-radius:var(--radius);
+      box-shadow:var(--shadow);padding:24px;
+      display:none;
+    }
+    .section.active{display:block}
+    .section-title{
+      font-size:20px;font-weight:700;
+      margin-bottom:20px;
+      display:flex;align-items:center;gap:10px;
+    }
+    .section-title span{font-size:22px}
+
+    /* SİPARİŞLER */
+    .order-card{
+      border:1px solid var(--line);border-radius:12px;
+      padding:16px;margin-bottom:12px;
+      transition:box-shadow .2s;
+    }
+    .order-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+    .order-header{
+      display:flex;justify-content:space-between;align-items:center;
+      margin-bottom:10px;
+    }
+    .order-name{font-weight:600;font-size:15px}
+    .order-price{
+      color:var(--brand);font-weight:700;font-size:16px;
+    }
+    .order-meta{
+      display:flex;gap:16px;flex-wrap:wrap;
+    }
+    .order-meta span{
+      font-size:13px;color:var(--muted);
+      display:flex;align-items:center;gap:4px;
+    }
+    .order-badge{
+      display:inline-block;padding:3px 10px;border-radius:20px;
+      font-size:12px;font-weight:600;
+      background:#e8f5ee;color:var(--green);
+    }
+    .empty-state{
+      text-align:center;padding:48px 0;
+      color:var(--muted);
+    }
+    .empty-state .big{font-size:48px;margin-bottom:12px}
+    .empty-state p{font-size:15px}
+
+    /* FAVORİLER */
+    .fav-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+      gap:16px;
+    }
+    .fav-card{
+      border:1px solid var(--line);border-radius:12px;
+      overflow:hidden;cursor:pointer;
+      transition:all .2s;
+    }
+    .fav-card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+    .fav-card img{width:100%;height:130px;object-fit:cover}
+    .fav-card-body{padding:10px}
+    .fav-card-body strong{font-size:13px;display:block;margin-bottom:4px}
+    .fav-card-body .price{color:var(--brand);font-weight:700;font-size:14px}
+    .fav-remove{
+      width:100%;margin-top:8px;padding:6px;
+      background:#fff5f5;color:var(--red);
+      border:1px solid #fde8e8;border-radius:8px;
+      cursor:pointer;font-size:12px;
+      transition:all .2s;
+    }
+    .fav-remove:hover{background:var(--red);color:#fff}
+
+    /* HESAP BİLGİLERİ */
+    .info-grid{display:grid;gap:16px}
+    .info-row{
+      display:flex;align-items:center;gap:16px;
+      padding:16px;background:var(--bg);border-radius:12px;
+    }
+    .info-icon{font-size:22px;width:40px;text-align:center}
+    .info-label{font-size:12px;color:var(--muted);margin-bottom:2px}
+    .info-value{font-size:15px;font-weight:600}
+
+    /* LOADING */
+    .loading{
+      text-align:center;padding:32px;
+      color:var(--muted);font-size:14px;
+    }
+    .spinner{
+      width:32px;height:32px;border:3px solid var(--line);
+      border-top-color:var(--brand);border-radius:50%;
+      animation:spin .8s linear infinite;
+      margin:0 auto 12px;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* GİRİŞ YAPILMADI */
+    .login-required{
+      text-align:center;padding:60px 20px;
+      background:#fff;border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .login-required .big{font-size:56px;margin-bottom:16px}
+    .login-required h2{font-size:22px;margin-bottom:8px}
+    .login-required p{color:var(--muted);margin-bottom:24px}
+    .login-required button{
+      background:var(--brand);color:#fff;border:none;
+      padding:12px 32px;border-radius:12px;
+      font-size:15px;font-weight:600;cursor:pointer;
+    }
+
+    @media(max-width:768px){
+      .page{grid-template-columns:1fr}
+      .sidebar{margin-bottom:0}
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="brand" onclick="window.location.href='index.html'">
+    <div class="brand-badge">BP</div>
+    <div>
+      <strong>BeytoPazar</strong>
+      <span>Teknoloji • Ev • Kozmetik • Market</span>
+    </div>
+  </div>
+  <div class="header-right">
+    <button class="back-btn" onclick="window.location.href='index.html'">← Alışverişe Dön</button>
+  </div>
+</header>
+
+<div class="page" id="mainPage">
+
+  <!-- GİRİŞ YAPILMADI -->
+  <div class="login-required" id="loginRequired" style="display:none;grid-column:1/-1">
+    <div class="big">🔒</div>
+    <h2>Giriş Yapmanız Gerekiyor</h2>
+    <p>Hesabınızı görüntülemek için önce giriş yapın.</p>
+    <button onclick="window.location.href='index.html'">Ana Sayfaya Git ve Giriş Yap</button>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebarEl">
+    <div class="user-info">
+      <div class="avatar">👤</div>
+      <strong id="panelUserName">Kullanıcı</strong>
+      <span id="panelUserEmail">-</span>
+    </div>
+    <nav class="nav-menu">
+      <div class="nav-item active" onclick="showSection('siparisler')" id="nav-siparisler">
+        <span class="icon">📦</span> Siparişlerim
+      </div>
+      <div class="nav-item" onclick="showSection('favoriler')" id="nav-favoriler">
+        <span class="icon">❤️</span> Favorilerim
+      </div>
+      <div class="nav-item" onclick="showSection('hesap')" id="nav-hesap">
+        <span class="icon">👤</span> Hesap Bilgilerim
+      </div>
+    </nav>
+    <div class="nav-logout" onclick="cikisYap()">
+      <span>🚪</span> Çıkış Yap
+    </div>
+  </aside>
+
+  <!-- İÇERİK -->
+  <div class="content">
+
+    <!-- SİPARİŞLERİM -->
+    <div class="section active" id="section-siparisler">
+      <div class="section-title"><span>📦</span> Siparişlerim</div>
+      <div id="siparislerContent">
+        <div class="loading"><div class="spinner"></div>Siparişler yükleniyor...</div>
+      </div>
+    </div>
+
+    <!-- FAVORİLERİM -->
+    <div class="section" id="section-favoriler">
+      <div class="section-title"><span>❤️</span> Favorilerim</div>
+      <div id="favorilerContent">
+        <div class="loading"><div class="spinner"></div>Favoriler yükleniyor...</div>
+      </div>
+    </div>
+
+    <!-- HESAP BİLGİLERİM -->
+    <div class="section" id="section-hesap">
+      <div class="section-title"><span>👤</span> Hesap Bilgilerim</div>
+      <div class="info-grid">
+        <div class="info-row">
+          <div class="info-icon">👤</div>
+          <div>
+            <div class="info-label">Ad Soyad</div>
+            <div class="info-value" id="hesapAd">-</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📧</div>
+          <div>
+            <div class="info-label">E-posta</div>
+            <div class="info-value" id="hesapEmail">-</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📅</div>
+          <div>
+            <div class="info-label">Üyelik</div>
+            <div class="info-value">BeytoPazar Üyesi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Kullanıcı bilgilerini al
+  const userName = localStorage.getItem('beytopazar-user') || '';
+  const userEmail = localStorage.getItem('beytopazar-email') || '';
+
+  // Giriş kontrolü
+  if(!userName){
+    document.getElementById('loginRequired').style.display = 'block';
+    document.getElementById('sidebarEl').style.display = 'none';
+    document.querySelector('.content').style.display = 'none';
+  } else {
+    // Kullanıcı bilgilerini göster
+    document.getElementById('panelUserName').textContent = userName;
+    document.getElementById('panelUserEmail').textContent = userEmail || 'BeytoPazar Üyesi';
+    document.getElementById('hesapAd').textContent = userName;
+    document.getElementById('hesapEmail').textContent = userEmail || '-';
+
+    // Siparişleri yükle
+    siparisleriYukle();
+    favorileriYukle();
+  }
+
+  function showSection(section){
+    // Tüm sectionları gizle
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+    // Seçileni göster
+    document.getElementById('section-' + section).classList.add('active');
+    document.getElementById('nav-' + section).classList.add('active');
+  }
+
+  function siparisleriYukle(){
+    const email = userName;
+    fetch(`http://localhost:3000/api/siparisler/${encodeURIComponent(email)}`)
+      .then(r => r.json())
+      .then(data => {
+        const el = document.getElementById('siparislerContent');
+        if(!data || data.length === 0){
+          el.innerHTML = `
+            <div class="empty-state">
+              <div class="big">📦</div>
+              <p>Henüz siparişiniz bulunmuyor.</p>
+            </div>`;
+          return;
+        }
+        el.innerHTML = data.map(s => `
+          <div class="order-card">
+            <div class="order-header">
+              <div class="order-name">${s.urun_adi}</div>
+              <div class="order-price">₺${Number(s.urun_fiyat).toLocaleString('tr-TR')}</div>
+            </div>
+            <div class="order-meta">
+              <span>🛒 Adet: ${s.adet}</span>
+              <span>📅 ${new Date(s.created_at).toLocaleDateString('tr-TR')}</span>
+              <span class="order-badge">✓ Teslim Edildi</span>
+            </div>
+          </div>
+        `).join('');
+      })
+      .catch(() => {
+        document.getElementById('siparislerContent').innerHTML = `
+          <div class="empty-state">
+            <div class="big">⚠️</div>
+            <p>Siparişler yüklenemedi. Sunucu çalışıyor mu?</p>
+          </div>`;
+      });
+  }
+
+  function favorileriYukle(){
+    const favs = JSON.parse(localStorage.getItem('beytopazar-favs') || '[]');
+    const el = document.getElementById('favorilerContent');
+    if(favs.length === 0){
+      el.innerHTML = `
+        <div class="empty-state">
+          <div class="big">❤️</div>
+          <p>Henüz favoriniz yok. Ürünlerdeki ❤ butonuna tıklayarak favorilere ekleyebilirsiniz.</p>
+        </div>`;
+      return;
+    }
+    el.innerHTML = `<div class="fav-grid">${favs.map(p => `
+      <div class="fav-card">
+        <img src="${p.image}" alt="${p.title}" onerror="this.src=''" />
+        <div class="fav-card-body">
+          <strong>${p.title}</strong>
+          <div class="price">₺${Number(p.price).toLocaleString('tr-TR')}</div>
+          <button class="fav-remove" onclick="favoriKaldir(${p.id})">🗑 Kaldır</button>
+        </div>
+      </div>
+    `).join('')}</div>`;
+  }
+
+  function favoriKaldir(id){
+    let favs = JSON.parse(localStorage.getItem('beytopazar-favs') || '[]');
+    favs = favs.filter(f => f.id !== id);
+    localStorage.setItem('beytopazar-favs', JSON.stringify(favs));
+    favorileriYukle();
+  }
+
+  function cikisYap(){
+    if(confirm('Çıkış yapmak istediğinize emin misiniz?')){
+      localStorage.removeItem('beytopazar-user');
+      localStorage.removeItem('beytopazar-email');
+      window.location.href = 'index.html';
+    }
+  }
+</script>
+
+</body>
+</html>

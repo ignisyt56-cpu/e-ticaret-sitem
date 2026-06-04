@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BeytoPazar | Elektronik, Mobilya, Kozmetik, Süpermarket</title>
+  <meta name="description" content="Elektronik, mobilya, kozmetik, süpermarket, spor, hobi ve anne çocuk kategorileriyle modern demo pazaryeri deneyimi." />
+  <style>
+    :root{
+      --brand:#f27a1a;
+      --brand-dark:#df6d13;
+      --bg:#f7f7f7;
+      --card:#ffffff;
+      --text:#222;
+      --muted:#6b7280;
+      --line:#e8e8e8;
+      --green:#1fa971;
+      --red:#e23b3b;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --radius:16px;
+      --max:1440px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,Arial,Helvetica,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    a{text-decoration:none;color:inherit}
+    button,input,select{font:inherit}
+    .top-strip{
+      background:#111;
+      color:#fff;
+      font-size:12px;
+      padding:8px 0;
+    }
+    .container{
+      width:min(calc(100% - 24px), var(--max));
+      margin-inline:auto;
+    }
+    .top-strip .container,
+    .main-header .container,
+    .header-bottom .container,
+    .campaigns .container,
+    .main-layout,
+    .footer .container{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .top-links{display:flex;gap:16px;opacity:.9;flex-wrap:wrap}
+    .main-header{
+      background:#fff;
+      position:sticky;
+      top:0;
+      z-index:30;
+      box-shadow:0 1px 0 rgba(0,0,0,.05);
+    }
+    .main-header .container{
+      padding:16px 0;
+      flex-wrap:wrap;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:210px;
+    }
+    .brand-badge{
+      width:44px;height:44px;border-radius:14px 20px 14px 8px;
+      background:linear-gradient(135deg,#f27a1a,#ffb56d 55%,#ffd6a8);
+      display:grid;place-items:center;
+      color:#fff;font-weight:900;
+      letter-spacing:-1px;
+      box-shadow:0 8px 22px rgba(242,122,26,.28);
+      transform:rotate(-2deg);
+    }
+    .brand-text strong{display:block;font-size:22px}
+    .brand-text span{font-size:12px;color:var(--muted)}
+    .search-box{
+      flex:1;
+      min-width:260px;
+      position:relative;
+    }
+    .search-box input{
+      width:100%;padding:16px 18px 16px 50px;border:none;
+      background:#f3f4f6;border-radius:999px;outline:none;
+    }
+    .search-box svg{
+      position:absolute;left:18px;top:50%;transform:translateY(-50%);
+      width:20px;height:20px;opacity:.55;
+    }
+    .header-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .action-btn{
+      border:none;background:#fff;padding:12px 16px;border-radius:999px;
+      cursor:pointer;display:flex;align-items:center;gap:8px;
+      box-shadow:inset 0 0 0 1px var(--line);
+      transition:.2s ease;
+    }
+    .action-btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+    .cart-pill{background:var(--brand);color:#fff;padding:2px 8px;border-radius:999px;font-size:12px}
+    .header-bottom{
+      background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    }
+    .header-bottom .container{
+      justify-content:flex-start;
+      overflow:auto;
+      padding:10px 0;
+      scrollbar-width:none;
+    }
+    .header-bottom .container::-webkit-scrollbar{display:none}
+    .category-chip{
+      white-space:nowrap;background:#fff;border:1px solid var(--line);padding:10px 16px;border-radius:999px;
+      cursor:pointer;transition:.2s ease;font-weight:600;
+    }
+    .category-chip.active,.category-chip:hover{background:var(--brand);border-color:var(--brand);color:#fff}
+    .hero{
+      padding:22px 0 10px;
+    }
+    .hero-grid{
+      display:grid;grid-template-columns:2fr 1fr;gap:14px;
+    }
+    .hero-main,.hero-side-card{
+      position:relative;border-radius:24px;overflow:hidden;background:#ddd;min-height:220px;
+      box-shadow:var(--shadow);
+    }
+    .hero-main img,.hero-side-card img{width:100%;height:100%;object-fit:cover;display:block}
+    .hero-overlay{
+      position:absolute;inset:0;background:linear-gradient(90deg, rgba(0,0,0,.58), rgba(0,0,0,.08));
+      display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:34px;color:#fff;
+    }
+    .hero-overlay h1{margin:0 0 10px;font-size:40px;max-width:540px;line-height:1.05}
+    .hero-overlay p{margin:0 0 16px;max-width:520px;color:rgba(255,255,255,.9)}
+    .hero-overlay button{
+      border:none;background:var(--brand);color:#fff;padding:14px 20px;border-radius:999px;cursor:pointer;font-weight:700;
+    }
+    .hero-side{
+      display:grid;gap:14px;
+    }
+    .hero-side-card .hero-overlay{padding:22px}
+    .hero-side-card h3{margin:0 0 8px;font-size:22px}
+    .campaigns{padding:14px 0}
+    .campaigns .container{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:stretch}
+    .campaign-card{
+      background:#fff;border-radius:20px;padding:18px;box-shadow:var(--shadow);min-height:120px;
+      display:flex;flex-direction:column;justify-content:space-between;border:1px solid rgba(242,122,26,.08);
+    }
+    .campaign-card small{color:var(--brand);font-weight:800;text-transform:uppercase}
+    .campaign-card strong{font-size:20px}
+    .campaign-card span{color:var(--muted);font-size:14px}
+    .main-layout{
+      width:min(calc(100% - 24px), var(--max));
+      margin:8px auto 36px;
+      display:grid;grid-template-columns:280px 1fr;align-items:start;gap:18px;
+    }
+    .sidebar,.content-area{min-width:0}
+    .panel{
+      background:#fff;border-radius:20px;padding:18px;box-shadow:var(--shadow);
+    }
+    .panel + .panel{margin-top:16px}
+    .panel h3{margin:0 0 14px;font-size:18px}
+    .filter-group + .filter-group{margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+    .filter-group label{display:flex;align-items:center;gap:10px;margin:10px 0;color:#333;cursor:pointer}
+    .filter-group input[type="checkbox"]{accent-color:var(--brand)}
+    .range-wrap{display:flex;gap:8px;align-items:center}
+    .range-wrap input{width:100%}
+    .mini-tags{display:flex;flex-wrap:wrap;gap:8px}
+    .mini-tags button{
+      border:none;background:#fff4eb;color:var(--brand-dark);padding:8px 10px;border-radius:999px;cursor:pointer;font-weight:700
+    }
+    .toolbar{
+      display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;
+      margin-bottom:16px;
+    }
+    .toolbar-left h2{margin:0;font-size:26px}
+    .toolbar-left p{margin:6px 0 0;color:var(--muted)}
+    .toolbar-right{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .toolbar-right select{
+      border:1px solid var(--line);background:#fff;padding:11px 14px;border-radius:12px;outline:none;
+    }
+    .product-grid{
+      display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;
+    }
+    .product-card{
+      background:#fff;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);position:relative;
+      transition:.25s ease;display:flex;flex-direction:column;
+    }
+    .product-card:hover{transform:translateY(-4px)}
+    .product-media{position:relative;aspect-ratio:1/1;background:#f5f5f5}
+    .product-media img{width:100%;height:100%;object-fit:cover;display:block}
+    .fav-btn{
+      position:absolute;right:12px;top:12px;border:none;background:rgba(255,255,255,.95);width:38px;height:38px;border-radius:50%;cursor:pointer;box-shadow:var(--shadow);
+      font-size:18px;
+    }
+    .fav-btn.favorited{background:var(--brand);color:#fff}
+    .badge-stack{position:absolute;left:10px;top:10px;display:flex;flex-direction:column;gap:6px}
+    .badge{
+      display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700;
+      background:#fff;
+    }
+    .badge.orange{color:var(--brand-dark);background:#fff3e8}
+    .badge.green{color:var(--green);background:#e8fff5}
+    .badge.red{color:var(--red);background:#ffe9e9}
+    .product-body{padding:14px 14px 16px;display:flex;flex-direction:column;gap:10px;flex:1}
+    .brand-line{font-size:13px;color:var(--muted);font-weight:700}
+    .title{font-size:15px;line-height:1.4;min-height:42px}
+    .rating{font-size:13px;color:#555;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .stars{color:#f6b21a;font-weight:800}
+    .price-row{display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap}
+    .old-price{text-decoration:line-through;color:#9ca3af;font-size:13px}
+    .new-price{font-size:22px;font-weight:800}
+    .discount{color:var(--green);font-weight:800;font-size:13px}
+    .shipping{color:var(--green);font-size:13px;font-weight:700}
+    .card-actions{display:flex;gap:8px;margin-top:auto}
+    .card-actions button{
+      flex:1;border:none;padding:12px;border-radius:12px;cursor:pointer;font-weight:700;
+    }
+    .detail-btn{background:#f3f4f6;color:#111}
+    .cart-btn{background:var(--brand);color:#fff}
+    .footer{background:#111;color:#fff;padding:30px 0;margin-top:30px}
+    .footer .container{flex-wrap:wrap}
+    .footer small{color:#bbb}
+
+    .overlay{
+      position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;padding:18px;z-index:60;
+    }
+    .overlay.active{display:flex}
+    .modal{
+      background:#fff;border-radius:24px;max-width:480px;width:100%;padding:24px;box-shadow:var(--shadow);position:relative;
+    }
+    .modal.wide{max-width:980px;padding:0;overflow:hidden}
+    .close-btn{
+      position:absolute;right:14px;top:14px;border:none;background:#f3f4f6;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:18px;
+    }
+    .login-form{display:grid;gap:12px;margin-top:18px}
+    .login-form input{
+      padding:14px 16px;border-radius:14px;border:1px solid var(--line);outline:none
+    }
+    .login-form button{
+      padding:14px;border:none;border-radius:14px;background:var(--brand);color:#fff;font-weight:800;cursor:pointer
+    }
+    .welcome-line{color:var(--green);font-weight:700;margin-top:10px;display:none}
+
+    .detail-layout{display:grid;grid-template-columns:1fr 1fr;min-height:540px}
+    .detail-layout img{width:100%;height:100%;object-fit:cover;display:block;background:#f5f5f5}
+    .detail-content{padding:26px;position:relative}
+    .detail-content h2{margin:0 0 8px;font-size:30px}
+    .detail-meta{color:var(--muted);margin-bottom:10px}
+    .detail-features{padding-left:18px;color:#444;line-height:1.7}
+    .detail-price{font-size:32px;font-weight:900;margin:18px 0 6px}
+    .detail-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .detail-actions button{border:none;padding:14px 18px;border-radius:14px;cursor:pointer;font-weight:800}
+    .detail-actions .secondary{background:#f3f4f6}
+    .detail-actions .primary{background:var(--brand);color:#fff}
+
+    .cart-drawer{
+      position:fixed;right:-460px;top:0;height:100vh;width:min(430px,100vw);background:#fff;z-index:70;
+      box-shadow:-10px 0 30px rgba(0,0,0,.15);transition:.28s ease;display:flex;flex-direction:column;
+    }
+    .cart-drawer.active{right:0}
+    .cart-header,.cart-footer{padding:18px;border-bottom:1px solid var(--line)}
+    .cart-footer{border-top:1px solid var(--line);border-bottom:none;margin-top:auto}
+    .cart-items{padding:14px;overflow:auto;display:grid;gap:12px}
+    .cart-item{display:grid;grid-template-columns:76px 1fr auto;gap:12px;background:#fafafa;border-radius:16px;padding:10px}
+    .cart-item img{width:76px;height:76px;object-fit:cover;border-radius:12px}
+    .cart-item strong{display:block;margin-bottom:6px}
+    .qty-row{display:flex;align-items:center;gap:8px;margin-top:8px}
+    .qty-row button{border:none;background:#ececec;width:28px;height:28px;border-radius:50%;cursor:pointer}
+    .checkout-btn{width:100%;border:none;background:var(--brand);color:#fff;padding:14px;border-radius:14px;font-weight:800;cursor:pointer}
+    .action-btn.cart-interact{animation:cart-press 0.45s ease;}
+    @keyframes cart-press{0%{transform:translateY(0);}50%{transform:translateY(-4px) scale(1.05);}100%{transform:translateY(0);}}
+    .empty-state{padding:24px;color:var(--muted);text-align:center}
+    .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:65;display:none}
+    .backdrop.active{display:block}
+
+    @media (max-width: 1200px){
+      .product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .campaigns .container{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width: 980px){
+      .hero-grid,.main-layout,.detail-layout{grid-template-columns:1fr}
+      .product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .main-layout{width:min(calc(100% - 20px), var(--max))}
+      .sidebar{order:2}
+    }
+    @media (max-width: 640px){
+      .main-header .container{padding:12px 0}
+      .hero-overlay h1{font-size:30px}
+      .campaigns .container{grid-template-columns:1fr}
+      .product-grid{grid-template-columns:1fr}
+      .toolbar-left h2{font-size:22px}
+    }
+  </style>
+</head>
+<body>
+  <div class="top-strip">
+    <div class="container">
+      <div>Modern alışveriş deneyimine benzer, çok kategorili demo pazaryeri</div>
+      <div class="top-links">
+        <span>Kuponlar</span>
+        <span>Hızlı Teslimat</span>
+        <span>Favoriler</span>
+        <span>Yardım</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="main-header">
+    <div class="container">
+      <a href="#" class="brand">
+        <div class="brand-badge">BP</div>
+        <div class="brand-text">
+          <strong>BeytoPazar</strong>
+          <span>Teknoloji • Ev • Kozmetik • Market</span>
+        </div>
+      </a>
+
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+        <input id="searchInput" type="search" placeholder="Ürün, kategori veya marka ara" />
+      </div>
+
+      <div class="header-actions">
+        <button class="action-btn" id="loginOpenBtn">👤 <span id="userLabel">Giriş Yap</span></button>
+        <button class="action-btn" id="favoritesBtn">❤ Favoriler</button>
+        <button class="action-btn" id="cartOpenBtn">🛒 Sepetim <span class="cart-pill" id="cartCount">0</span></button>
+      </div>
+    </div>
+
+    <div class="header-bottom">
+      <div class="container" id="categoryBar"></div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-main">
+          <img src="iphone%2015.jpeg" alt="Elektronik ürünlerle modern alışveriş deneyimi" />
+          <div class="hero-overlay">
+            <h1>Elektronikten mobilyaya, kozmetikten markete her şey burada</h1>
+            <p>Modern pazaryeri hissi veren geniş kategori yapısı, kampanyalar, resimli ürün kartları, giriş yap alanı ve çalışan sepet sistemi ile tam sunumluk final demo.</p>
+            <button onclick="scrollToProducts()">Alışverişe Başla</button>
+          </div>
+        </div>
+        <div class="hero-side">
+          <div class="hero-side-card">
+            <img src="Samsung%20Galaxy-s24.jpg" alt="Mobilya kampanyası" />
+            <div class="hero-overlay">
+              <small>Mobilya Fırsatları</small>
+              <h3>Yeni sezon koltuk ve masa seçenekleri</h3>
+            </div>
+          </div>
+          <div class="hero-side-card">
+            <img src="apple-watch-series-9.png" alt="Kozmetik kampanyası" />
+            <div class="hero-overlay">
+              <small>Kozmetik İndirimi</small>
+              <h3>Bakım ve makyaj ürünlerinde özel fiyatlar</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="campaigns">
+
+  <!-- Veri Gönderme Formu Başlangıç -->
+  <section style="margin: 32px 0;">
+    <h2>Sunucuya Veri Gönder</h2>
+    <form id="dataForm">
+      <input type="text" id="dataInput" placeholder="Bir veri girin" required style="padding:8px 12px; border-radius:8px; border:1px solid #ccc; margin-right:8px;" />
+      <button type="submit" style="padding:8px 18px; border-radius:8px; background:var(--brand); color:#fff; border:none;">Gönder</button>
+    </form>
+    <div id="formResult" style="margin-top:12px;color:var(--green);"></div>
+  </section>
+  <!-- Veri Gönderme Formu Bitiş -->
+    <div class="container">
+      <div class="campaign-card">
+        <small>Elektronik</small>
+        <strong>Bugüne özel teknoloji kampanyası</strong>
+        <span>Telefon, kulaklık, saat ve aksesuar ürünlerinde ekstra indirim</span>
+      </div>
+      <div class="campaign-card">
+        <small>Mobilya</small>
+        <strong>Evini yenile, alanını güzelleştir</strong>
+        <span>Koltuk, sehpa, masa ve çalışma odası ürünlerinde fırsatlar</span>
+      </div>
+      <div class="campaign-card">
+        <small>Kozmetik</small>
+        <strong>Bakım rutinine yeni ürünler ekle</strong>
+        <span>Serum, parfüm, krem ve makyaj ürünlerinde avantajlı fiyatlar</span>
+      </div>
+      <div class="campaign-card">
+        <small>Süpermarket</small>
+        <strong>Günlük ihtiyaçların tek sepette</strong>
+        <span>Kahve, makarna, çikolata, temizlik ve atıştırmalık ürünleri burada</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-row">
+    <div class="trust-card"><strong>🚚 Hızlı teslimat</strong><span>Seçili ürünlerde yarın kargoda etiketi.</span></div>
+    <div class="trust-card"><strong>💳 Güvenli alışveriş</strong><span>Demo ödeme akışı için hazırlanmış örnek yapı.</span></div>
+    <div class="trust-card"><strong>⭐ Yorumlu ürünler</strong><span>Ürün kartlarında puan ve değerlendirme bilgisi.</span></div>
+    <div class="trust-card"><strong>🎁 Kampanyalar</strong><span>Sepette indirim, çok satan ve market fırsatları.</span></div>
+  </section>
+
+  <main class="main-layout" id="productsSection">
+    <aside class="sidebar">
+      <div class="panel">
+        <h3>Filtreler</h3>
+        <div class="filter-group">
+          <strong>Kampanya Etiketleri</strong>
+          <label><input type="checkbox" id="fastDeliveryFilter" /> Hızlı teslimat</label>
+          <label><input type="checkbox" id="discountFilter" /> İndirimli ürünler</label>
+          <label><input type="checkbox" id="popularFilter" /> Çok satanlar</label>
+        </div>
+        <div class="filter-group">
+          <strong>Fiyat</strong>
+          <div class="range-wrap">
+            <span>₺0</span>
+            <input type="range" id="priceRange" min="50" max="70000" value="70000" step="50" />
+            <span id="priceValue">₺70000</span>
+          </div>
+        </div>
+        <div class="filter-group">
+          <strong>Kategoriye Hızlı Git</strong>
+          <div class="mini-tags" id="quickTags"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Neden iyi görünüyor?</h3>
+        <div style="color:var(--muted);line-height:1.7;font-size:14px">
+          Resimli ürün kartları, kategori yoğunluğu, giriş yap alanı, çalışan sepet çekmecesi, kampanya blokları ve modern pazaryeri düzeni bir arada. Bazı metinleri özellikle çok kurumsal değil, daha öğrenci projesi gibi doğal tuttum.
+        </div>
+      </div>
+    </aside>
+
+    <section class="content-area">
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <h2>Öne Çıkan Ürünler</h2>
+          <p><span id="resultCount"></span> ürün listeleniyor</p>
+        </div>
+        <div class="toolbar-right">
+          <select id="sortSelect">
+            <option value="popular">Popülere göre sırala</option>
+            <option value="price-asc">Fiyat artan</option>
+            <option value="price-desc">Fiyat azalan</option>
+            <option value="rating">Yüksek puan</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div>
+        <strong style="display:block;font-size:20px;margin-bottom:8px">BeytoPazar</strong>
+        <small>Sunum ve proje teslimi için hazırlanmış modern pazaryeri demo sitesi.</small>
+      </div>
+      <small>Teknoloji • Ev • Kozmetik • Market • Ev & Yaşam</small>
+    </div>
+  </footer>
+
+  <div class="overlay" id="loginOverlay">
+    <div class="modal">
+      <button class="close-btn" onclick="closeLogin()">×</button>
+      <h2>Giriş Yap</h2>
+      <p style="color:var(--muted)">Her sitede olduğu gibi giriş yap alanı burada da hazır. Demo amaçlı çalışır.</p>
+      <form class="login-form" id="loginForm">
+        <input type="text" id="nameInput" placeholder="Ad Soyad" required />
+        <input type="email" id="emailInput" placeholder="E-posta" required />
+        <input type="password" placeholder="Şifre" required />
+        <button type="submit">Devam Et</button>
+      </form>
+      <div class="welcome-line" id="welcomeLine">Giriş yapıldı</div>
+    </div>
+  </div>
+
+  <div class="overlay" id="detailOverlay">
+    <div class="modal wide" id="detailModal"></div>
+  </div>
+
+  <div class="backdrop" id="drawerBackdrop"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+      <strong style="font-size:22px">Sepetim</strong>
+      <button class="close-btn" style="position:static" onclick="closeCart()">×</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <strong>Toplam</strong>
+        <strong id="cartTotal">₺0</strong>
+      </div>
+      <button class="checkout-btn">Siparişi Tamamla</button>
+    </div>
+  </aside>
+
+
+  <footer style="margin-top:28px;background:#111;color:#fff;padding:32px 0">
+    <div class="container" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:18px;align-items:start">
+      <div><strong style="font-size:22px">BeytoPazar</strong><p style="color:#bbb;line-height:1.7">Elektronik, mobilya, kozmetik, süpermarket ve hobi kategorileriyle hazırlanmış çok kategorili demo pazaryeri.</p><p class="student-note">Demo proje: ürünler ve fiyatlar örnek amaçlıdır.</p></div>
+      <div><strong>Kategoriler</strong><p style="color:#bbb;line-height:1.8">Elektronik<br>Mobilya<br>Kozmetik<br>Süpermarket</p></div>
+      <div><strong>Yardım</strong><p style="color:#bbb;line-height:1.8">Sipariş takip<br>İade koşulları<br>Canlı destek</p></div>
+      <div><strong>Sosyal</strong><p style="color:#bbb;line-height:1.8">Instagram<br>Behance<br>LinkedIn</p></div>
+    </div>
+  </footer>
+
+  <script>
+    // Formdan veri gönderme
+    document.addEventListener('DOMContentLoaded', function() {
+      const dataForm = document.getElementById('dataForm');
+      if(dataForm) {
+        dataForm.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          const value = document.getElementById('dataInput').value;
+          try {
+            const res = await fetch('http://localhost:3000/veri', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ veri: value })
+            });
+            const result = await res.json();
+            document.getElementById('formResult').textContent = result.mesaj || 'Başarılı!';
+          } catch(err) {
+            document.getElementById('formResult').textContent = 'Bir hata oluştu.';
+          }
+        });
+      }
+    });
+    const products = [
+      {
+        id:1,
+        category:'Elektronik',
+        brand:'Apple',
+        title:'iPhone 15 128 GB Akıllı Telefon',
+        price:52999,
+        oldPrice:55999,
+        rating:4.8,
+        reviews:1240,
+        fast:true,
+        popular:true,
+        image:'iphone 15.jpeg',
+        features:['128 GB depolama','Gelişmiş kamera sistemi','Şık ve premium tasarım']
+      },
+      {
+        id:2,
+        category:'Elektronik',
+        brand:'Samsung',
+        title:'Galaxy S24 Ultra 256 GB Akıllı Telefon',
+        price:61499,
+        oldPrice:65999,
+        rating:4.9,
+        reviews:980,
+        fast:true,
+        popular:true,
+        image:'Samsung Galaxy-s24 Ultra.jpg',
+        features:['256 GB depolama','Yüksek çözünürlüklü ekran','Güçlü performans']
+      },
+      {
+        id:3,
+        category:'Elektronik',
+        brand:'Sony',
+        title:'WH-1000XM5 Kablosuz Gürültü Engelleyici Kulaklık',
+        price:12999,
+        oldPrice:14999,
+        rating:4.7,
+        reviews:645,
+        fast:true,
+        popular:false,
+        image:'Sony WH-1000XM5.jpeg',
+        features:['Aktif gürültü engelleme','Uzun pil ömrü','Premium ses kalitesi']
+      },
+      {
+        id:4,
+        category:'Elektronik',
+        brand:'Xiaomi',
+        title:'Akıllı Saat AMOLED Ekranlı Spor Takip Cihazı',
+        price:3999,
+        oldPrice:4699,
+        rating:4.5,
+        reviews:432,
+        fast:true,
+        popular:true,
+        image:'apple-watch-series-9.png',
+        features:['AMOLED ekran','Uyku ve spor takibi','Bildirim desteği']
+      },
+      {
+        id:5,
+        category:'Mobilya',
+        brand:'BeytoPazar',
+        title:'Rahat Oturma Koltuğu',
+        price:16299,
+        oldPrice:18999,
+        rating:4.5,
+        reviews:210,
+        fast:false,
+        popular:true,
+        image:'koltuk.jpeg',
+        features:['Konforlu dolgu','Modern renk','Geniş oturum alanı']
+      },
+      {
+        id:6,
+        category:'Mobilya',
+        brand:'BeytoPazar',
+        title:'Çalışma Masası Ahşap Tasarım',
+        price:8999,
+        oldPrice:10999,
+        rating:4.4,
+        reviews:178,
+        fast:false,
+        popular:false,
+        image:'calisma-masasi.jpeg',
+        features:['Geniş çalışma alanı','Dayanıklı yüzey','Minimal tasarım']
+      },
+      {
+        id:7,
+        category:'Mobilya',
+        brand:'Home Comfort',
+        title:'Yumuşak Battaniye',
+        price:899,
+        oldPrice:1199,
+        rating:4.5,
+        reviews:310,
+        fast:true,
+        popular:false,
+        image:'battaniye.jpeg',
+        features:['Sıcak tutan kumaş','Yumuşak doku','Ev dekoruna uyumlu']
+      },
+      {
+        id:8,
+        category:'Ev & Yaşam',
+        brand:'Coffee Art',
+        title:'Seramik Kahve Fincanı Seti',
+        price:449,
+        oldPrice:599,
+        rating:4.7,
+        reviews:214,
+        fast:true,
+        popular:true,
+        image:'kahve fincanı.jpeg',
+        features:['Seramik malzeme','Modern tasarım','6 kişilik set']
+      },
+      {
+        id:9,
+        category:'Ev & Yaşam',
+        brand:'BeytoPazar',
+        title:'Şık Günlük Çanta',
+        price:749,
+        oldPrice:899,
+        rating:4.4,
+        reviews:132,
+        fast:true,
+        popular:false,
+        image:'çanta.jpeg',
+        features:['Şık tasarım','Günlük kullanım','Dayanıklı malzeme']
+      },
+      {
+        id:10,
+        category:'Kozmetik',
+        brand:'Glow Lab',
+        title:'Hyaluronic Nemlendirici Serum',
+        price:549,
+        oldPrice:699,
+        rating:4.7,
+        reviews:812,
+        fast:true,
+        popular:true,
+        image:'nemlendirici serum.jpeg',
+        features:['Yoğun nemlendirme','Paraben içermez','Işıltılı cilt']
+      },
+      {
+        id:11,
+        category:'Kozmetik',
+        brand:'Veloura',
+        title:'Çiçeksi Parfüm',
+        price:1249,
+        oldPrice:1549,
+        rating:4.6,
+        reviews:560,
+        fast:true,
+        popular:true,
+        image:'parfüm.jpeg',
+        features:['Kalıcı koku','Zarif şişe','Günlük ve özel kullanım']
+      },
+      {
+        id:12,
+        category:'Kozmetik',
+        brand:'Color Chic',
+        title:'Makyaj Seti',
+        price:649,
+        oldPrice:799,
+        rating:4.5,
+        reviews:332,
+        fast:true,
+        popular:true,
+        image:'makyaj-seti.jpeg',
+        features:['Ruj, allık, far','Çantada taşıma kolaylık','Günlük kullanım']
+      },
+      {
+        id:13,
+        category:'Süpermarket',
+        brand:'Filtre Kahve',
+        title:'Filtre Kahve 500 g',
+        price:179,
+        oldPrice:229,
+        rating:4.5,
+        reviews:196,
+        fast:true,
+        popular:false,
+        image:'filtre kahve.jpeg',
+        features:['Hafif kavrulmuş','Kolay demleme','Yoğun lezzet']
+      },
+      {
+        id:14,
+        category:'Süpermarket',
+        brand:'Homemade',
+        title:'Makarna ve Sos Paketi',
+        price:189,
+        oldPrice:239,
+        rating:4.5,
+        reviews:149,
+        fast:true,
+        popular:false,
+        image:'makarna ve sos.jpeg',
+        features:['Pratik yemek','Lezzetli sos','Aile boy paket']
+      },
+      {
+        id:15,
+        category:'Süpermarket',
+        brand:'Sweet Delights',
+        title:'Belçika Çikolata Kutu',
+        price:349,
+        oldPrice:429,
+        rating:4.9,
+        reviews:421,
+        fast:true,
+        popular:true,
+        image:'belçika çikolata.jpeg',
+        features:['Zengin çikolata','Şık paket','Hediye için ideal']
+      },
+      {
+        id:16,
+        category:'Süpermarket',
+        brand:'Clean Max',
+        title:'Sıvı Deterjan 3 L',
+        price:229,
+        oldPrice:279,
+        rating:4.4,
+        reviews:367,
+        fast:true,
+        popular:false,
+        image:'sıvı deterjan.jpg',
+        features:['Derinlemesine temizlik','Ferah koku','Ekonomik paket']
+      }
+      ,
+      {id:17,category:'Süpermarket',brand:'Fresh Basket',title:'Meyve ve Sebze Sepeti',price:279,oldPrice:349,rating:4.7,reviews:218,fast:true,popular:true,image:'meyve ve sebze.jpeg',features:['Taze ürünler','Sağlıklı seçim','Mevsimsel içerik']},
+      {id:18,category:'Kozmetik',brand:'Brush Pro',title:'Makyaj Fırça Seti 10 Parça',price:799,oldPrice:999,rating:4.4,reviews:234,fast:true,popular:false,image:'makyaş fırça.jpeg',features:['Profesyonel kıllar','Hassas uygulama','Uzun sap tasarımı']},
+      {id:19,category:'Süpermarket',brand:'Brew Master',title:'Klasik Kahve Paketi',price:249,oldPrice:329,rating:4.6,reviews:282,fast:true,popular:true,image:'kahve.jpg',features:['Taze çekilmiş kahve','Yoğun aroma','Günlük keyif için']},
+      {id:20,category:'Kitap & Hobi',brand:'StoryLine',title:'Roman ve Not Defteri Seti',price:299,oldPrice:399,rating:4.5,reviews:144,fast:true,popular:false,image:'roman ve not defteri.jpeg',features:['Klasik roman','Şık not defteri','Hediyelik paket']},
+      {id:21,category:'Elektronik',brand:'TechnoMax',title:'Bluetooth Hoparlör Taşınabilir Ses Sistemi',price:1899,oldPrice:2399,rating:4.5,reviews:372,fast:true,popular:true,image:'hoparlör.jpg',features:['Kablosuz kullanım','Güçlü bass','Kompakt gövde']},
+      {id:22,category:'Mobilya',brand:'BeytoPazar',title:'Okuma Koltuğu',price:12499,oldPrice:14999,rating:4.6,reviews:134,fast:false,popular:true,image:'okuma koltuğu.jpeg',features:['Yüksek sırt desteği','Raftlı yan sehpa','Estetik görünüm']},
+      {id:23,category:'Anne & Çocuk',brand:'ToyJoy',title:'Çocuk Oyuncak Seti',price:219,oldPrice:299,rating:4.6,reviews:226,fast:true,popular:true,image:'toys.jpeg',features:['Eğitici oyuncak','Renkli tasarım','Küçük eller için uygun']},
+      {id:24,category:'Mobilya',brand:'Loft Desk',title:'Kitaplıklı Çalışma Masası Seti',price:9799,oldPrice:11599,rating:4.3,reviews:87,fast:false,popular:false,image:'kitaplık çalışma masası seti.jpg',features:['Kitaplıklı yapı','Öğrenci odası için ideal','Düzenli görünüm']},
+      {id:25,category:'Spor & Outdoor',brand:'TrailPro',title:'Kamp Çantası 45 L Outdoor Sırt Çantası',price:1499,oldPrice:1899,rating:4.7,reviews:256,fast:true,popular:true,image:'kamp çantası.jpg',features:['Geniş hacim','Kamp ve yürüyüş için','Suya dayanıklı kumaş']},
+      {id:26,category:'Spor & Outdoor',brand:'MoveFit',title:'Yoga Matı ve Direnç Bandı Seti',price:649,oldPrice:849,rating:4.6,reviews:412,fast:true,popular:false,image:'yoga bandı.jpeg',features:['Evde spor için','Kaymaz mat yüzeyi','Başlangıç seti']},
+      {id:27,category:'Kitap & Hobi',brand:'Artiva',title:'Çizim Defteri ve Eskiz Kalemi Seti',price:399,oldPrice:499,rating:4.8,reviews:193,fast:true,popular:true,image:'çizim defteri ve kalem seti.jpg',features:['Tasarım öğrencileri için','Eskiz kalemleri dahil','Portfolyo çalışmasına uygun']},
+      {id:28,category:'Kitap & Hobi',brand:'StoryLine',title:'Popüler Roman ve Not Defteri Paketi',price:289,oldPrice:359,rating:4.5,reviews:144,fast:true,popular:false,image:'not defteri.jpg',features:['Kitap ve not seti','Hediye için uygun','Kırtasiye kategorisini doldurur']},
+      {id:29,category:'Anne & Çocuk',brand:'MiniJoy',title:'Eğitici Ahşap Oyuncak Seti',price:749,oldPrice:929,rating:4.7,reviews:226,fast:true,popular:true,image:'eğitici oyuncak ahşap seti.jpeg',features:['Eğitici oyun','Ahşap görünüm','Çocuk kategorisi için dolu içerik']},
+      {id:30,category:'Anne & Çocuk',brand:'BabySoft',title:'Bebek Battaniyesi ve Yastık Seti',price:529,oldPrice:699,rating:4.6,reviews:164,fast:true,popular:false,image:'bebek yastık ve yorgan.jpg',features:['Yumuşak doku','Pastel renk','Günlük kullanım']}
+
+    ];
+
+    const categories = ['Tümü','Elektronik','Mobilya','Kozmetik','Süpermarket','Ev & Yaşam','Spor & Outdoor','Kitap & Hobi','Anne & Çocuk'];
+    const state = {
+      search:'',
+      category:'Tümü',
+      sort:'popular',
+      maxPrice:70000,
+      fast:false,
+      discount:false,
+      popular:false,
+      cart:[],
+      orderComplete:false,
+      user: localStorage.getItem('beytopazar-user') || ''
+    };
+
+    const productGrid = document.getElementById('productGrid');
+    const categoryBar = document.getElementById('categoryBar');
+    const quickTags = document.getElementById('quickTags');
+    const cartOpenBtn = document.getElementById('cartOpenBtn');
+    const resultCount = document.getElementById('resultCount');
+    const cartCount = document.getElementById('cartCount');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const userLabel = document.getElementById('userLabel');
+
+    function formatPrice(value){
+      return new Intl.NumberFormat('tr-TR', {style:'currency', currency:'TRY', maximumFractionDigits:0}).format(value);
+    }
+
+    function buildCategoryBar(){
+      categoryBar.innerHTML = '';
+      quickTags.innerHTML = '';
+      categories.forEach(cat => {
+        const chip = document.createElement('button');
+        chip.className = 'category-chip' + (state.category === cat ? ' active' : '');
+        chip.textContent = cat;
+        chip.onclick = () => { state.category = cat; renderAll(); };
+        categoryBar.appendChild(chip);
+
+        if(cat !== 'Tümü'){
+          const q = document.createElement('button');
+          q.textContent = cat;
+          q.onclick = () => { state.category = cat; renderAll(); window.scrollTo({top:document.getElementById('productsSection').offsetTop - 120, behavior:'smooth'}); };
+          quickTags.appendChild(q);
+        }
+      });
+    }
+
+    function getFilteredProducts(){
+      let list = products.filter(p => {
+        const search = state.search.trim().toLowerCase();
+        const matchesSearch = !search || [p.title,p.brand,p.category].join(' ').toLowerCase().includes(search);
+        const matchesCategory = state.category === 'Tümü' || p.category === state.category;
+        const matchesFast = !state.fast || p.fast;
+        const matchesDiscount = !state.discount || p.oldPrice > p.price;
+        const matchesPopular = !state.popular || p.popular;
+        const matchesPrice = p.price <= state.maxPrice;
+        return matchesSearch && matchesCategory && matchesFast && matchesDiscount && matchesPopular && matchesPrice;
+      });
+
+      if(state.sort === 'price-asc') list.sort((a,b) => a.price - b.price);
+      else if(state.sort === 'price-desc') list.sort((a,b) => b.price - a.price);
+      else if(state.sort === 'rating') list.sort((a,b) => b.rating - a.rating);
+      else list.sort((a,b) => (b.popular - a.popular) || (b.rating - a.rating));
+
+      return list;
+    }
+
+    function renderProducts(){
+      const filtered = getFilteredProducts();
+      resultCount.textContent = filtered.length;
+      productGrid.innerHTML = filtered.map(p => `
+        <article class="product-card" data-id="${p.id}">
+          <div class="product-media">
+            <img src="${encodeURI(p.image)}" alt="${p.title}" loading="lazy" />
+            <button class="fav-btn${isFavorited(p.id) ? ' favorited' : ''}" data-id="${p.id}" title="Favorilere ekle">❤</button>
+            <div class="badge-stack">
+              ${p.popular ? '<span class="badge orange">Çok Satan</span>' : ''}
+              ${p.fast ? '<span class="badge green">Hızlı Teslimat</span>' : ''}
+              ${p.oldPrice > p.price ? '<span class="badge red">İndirim</span>' : ''}
+            </div>
+          </div>
+          <div class="product-body">
+            <div class="brand-line">${p.brand} • ${p.category}</div>
+            <div class="title">${p.title}</div>
+            <div class="rating"><span class="stars">★ ${p.rating}</span> <span>(${p.reviews} değerlendirme)</span></div>
+            <div class="price-row">
+              <span class="new-price">${formatPrice(p.price)}</span>
+              <span class="old-price">${formatPrice(p.oldPrice)}</span>
+              <span class="discount">%${Math.round((1 - p.price / p.oldPrice) * 100)}</span>
+            </div>
+            <div class="shipping">${p.fast ? 'Yarın kargoda' : 'Standart teslimat'}</div>
+            <div class="review-mini"><b>Kullanıcı yorumu:</b> ${p.rating >= 4.7 ? 'Ürün beklediğimden iyi çıktı, paketleme de düzgün.' : 'Fiyatına göre güzel, görseldeki gibi duruyor.'}</div>
+            <div class="card-actions">
+              <button class="detail-btn" onclick="openDetail(${p.id})">Detay</button>
+              <button class="cart-btn" onclick="addToCart(${p.id})">Sepete Ekle</button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function addToCart(id){
+      state.orderComplete = false;
+      const found = state.cart.find(i => i.id === id);
+      if(found) found.qty += 1;
+      else state.cart.push({id, qty:1});
+      renderCart();
+      const p = products.find(pr => pr.id === id);
+      fetch('http://localhost:3000/api/sepet', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          kullanici_email: state.user || 'misafir',
+          urun_adi: p.title,
+          urun_fiyat: p.price,
+          adet: 1
+        })
+      }).catch(err => console.warn('Sepet kaydı gönderilemedi', err));
+
+      openCart();
+    }
+
+    // MySQL'e kaydet (sunucuya sepet ekleme isteği)
+    function addToCartAndSave(id){
+      const p = products.find(pr => pr.id === id);
+      try {
+        fetch('http://localhost:3000/api/sepet', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+           kullanici_email: localStorage.getItem('beytopazar-email') || state.user || 'misafir',
+            urun_adi: p.title,
+            urun_fiyat: p.price,
+            adet: 1
+          })
+        }).catch(err => console.warn('Sepet kaydı gönderilemedi', err));
+      } catch(e) {
+        console.warn('Sepet kaydı hata', e);
+      }
+
+      // Mevcut addToCart davranışını çağır
+      addToCart(id);
+    }
+
+    function changeQty(id, delta){
+      const item = state.cart.find(i => i.id === id);
+      if(!item) return;
+      item.qty += delta;
+      if(item.qty <= 0){
+        state.cart = state.cart.filter(i => i.id !== id);
+      }
+      renderCart();
+    }
+
+    function checkoutCart(){
+      state.orderComplete = true;
+      state.cart = [];
+      renderCart();
+      openCart();
+      cartOpenBtn.classList.add('cart-interact');
+      setTimeout(() => cartOpenBtn.classList.remove('cart-interact'), 450);
+    }
+
+    function handleCartIconClick(){
+      openCart();
+      if(state.orderComplete){
+        cartItems.innerHTML = '<div class="empty-state">Siparişiniz alındı! Yeni ürünler ekleyebilirsiniz.</div>';
+        cartTotal.textContent = formatPrice(0);
+        cartOpenBtn.classList.add('cart-interact');
+        setTimeout(() => cartOpenBtn.classList.remove('cart-interact'), 450);
+      }
+    }
+
+    function renderCart(){
+      cartCount.textContent = state.cart.reduce((a,b)=>a+b.qty,0);
+      if(state.cart.length === 0){
+        cartItems.innerHTML = state.orderComplete
+          ? '<div class="empty-state">Siparişiniz başarıyla tamamlandı! Teşekkür ederiz.</div>'
+          : '<div class="empty-state">Sepetin şu an boş. Ürün ekleyince burada görünecek.</div>';
+        cartTotal.textContent = formatPrice(0);
+        return;
+      }
+      let total = 0;
+      cartItems.innerHTML = state.cart.map(item => {
+        const p = products.find(pr => pr.id === item.id);
+        const rowTotal = p.price * item.qty;
+        total += rowTotal;
+        return `
+          <div class="cart-item">
+            <img src="${p.image}" alt="${p.title}" />
+            <div>
+              <strong>${p.title}</strong>
+              <div style="color:var(--muted);font-size:13px">${p.brand}</div>
+              <div class="qty-row">
+                <button onclick="changeQty(${p.id},-1)">-</button>
+                <span>${item.qty}</span>
+                <button onclick="changeQty(${p.id},1)">+</button>
+              </div>
+            </div>
+            <strong>${formatPrice(rowTotal)}</strong>
+          </div>
+        `;
+      }).join('');
+      cartTotal.textContent = formatPrice(total);
+    }
+
+    function openDetail(id){
+      const p = products.find(pr => pr.id === id);
+      const modal = document.getElementById('detailModal');
+      modal.innerHTML = `
+        <div class="detail-layout">
+          <div><img src="${p.image}" alt="${p.title}" /></div>
+          <div class="detail-content">
+            <button class="close-btn" onclick="closeDetail()">×</button>
+            <div class="detail-meta">${p.brand} • ${p.category}</div>
+            <h2>${p.title}</h2>
+            <div class="rating"><span class="stars">★ ${p.rating}</span> <span>${p.reviews} yorum</span></div>
+            <div class="detail-price">${formatPrice(p.price)}</div>
+            <div class="old-price">${formatPrice(p.oldPrice)}</div>
+            <p style="color:var(--muted)">Modern pazaryeri düzenine uygun detay penceresi. Ürün detayına bakıldığında temel bilgiler, fiyat, yorum ve özellikler görünür.</p>
+            <ul class="detail-features">
+              ${p.features.map(f => `<li>${f}</li>`).join('')}
+            </ul>
+            <div class="detail-actions">
+              <button class="secondary" onclick="closeDetail()">Kapat</button>
+              <button class="primary" onclick="addToCart(${p.id});closeDetail()">Sepete Ekle</button>
+            </div>
+          </div>
+        </div>
+      `;
+      document.getElementById('detailOverlay').classList.add('active');
+    }
+
+    function closeDetail(){ document.getElementById('detailOverlay').classList.remove('active'); }
+    function openLogin(){ document.getElementById('loginOverlay').classList.add('active'); }
+    function closeLogin(){ document.getElementById('loginOverlay').classList.remove('active'); }
+    function openCart(){ document.getElementById('cartDrawer').classList.add('active'); document.getElementById('drawerBackdrop').classList.add('active'); }
+    function closeCart(){ document.getElementById('cartDrawer').classList.remove('active'); document.getElementById('drawerBackdrop').classList.remove('active'); }
+    function scrollToProducts(){ document.getElementById('productsSection').scrollIntoView({behavior:'smooth'}); }
+
+    function updateUserUI(){
+      userLabel.textContent = state.user || 'Giriş Yap';
+    }
+
+    function renderAll(){
+      buildCategoryBar();
+      renderProducts();
+      renderCart();
+      updateUserUI();
+    }
+
+    document.getElementById('searchInput').addEventListener('input', e => { state.search = e.target.value; renderProducts(); });
+    document.getElementById('sortSelect').addEventListener('change', e => { state.sort = e.target.value; renderProducts(); });
+    document.getElementById('priceRange').addEventListener('input', e => {
+      state.maxPrice = Number(e.target.value);
+      document.getElementById('priceValue').textContent = formatPrice(state.maxPrice);
+      renderProducts();
+    });
+    document.getElementById('fastDeliveryFilter').addEventListener('change', e => { state.fast = e.target.checked; renderProducts(); });
+    document.getElementById('discountFilter').addEventListener('change', e => { state.discount = e.target.checked; renderProducts(); });
+    document.getElementById('popularFilter').addEventListener('change', e => { state.popular = e.target.checked; renderProducts(); });
+document.getElementById('loginOpenBtn').addEventListener('click', () => {
+  if(state.user) window.location.href = 'panel.html';
+  else openLogin();
+});
+    document.getElementById('cartOpenBtn').addEventListener('click', handleCartIconClick);
+    document.querySelector('.checkout-btn').addEventListener('click', checkoutCart);
+    document.getElementById('drawerBackdrop').addEventListener('click', closeCart);
+
+    document.getElementById('loginForm').addEventListener('submit', async function(e){
+      e.preventDefault();
+      const name = document.getElementById('nameInput').value.trim();
+      const email = document.getElementById('emailInput').value.trim();
+      if(!name || !email) return;
+      // Sunucuya kayıt kaydetme isteği
+      try {
+        const res = await fetch('http://localhost:3000/api/kayit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ad: name, email: email })
+        });
+        const json = await res.json();
+        document.getElementById('welcomeLine').style.display = 'block';
+        document.getElementById('welcomeLine').textContent = json.mesaj || `${name} olarak giriş yapıldı`;
+      } catch(err) {
+        document.getElementById('welcomeLine').style.display = 'block';
+        document.getElementById('welcomeLine').textContent = 'Sunucuya kayıt gönderilemedi';
+      }
+
+      state.user = name;
+      localStorage.setItem('beytopazar-user', name);
+      localStorage.setItem('beytopazar-email', email);
+      updateUserUI();
+      setTimeout(closeLogin, 900);
+    });
+
+    // Favoriler yönetimi (localStorage)
+    function getFavs(){ return JSON.parse(localStorage.getItem('beytopazar-favs') || '[]'); }
+    function isFavorited(id){ return getFavs().some(f => f.id === id); }
+    function toggleFav(id){
+      const favs = getFavs();
+      const exists = favs.find(f => f.id === id);
+      if(exists){
+        const newFavs = favs.filter(f => f.id !== id);
+        localStorage.setItem('beytopazar-favs', JSON.stringify(newFavs));
+      } else {
+        const p = products.find(pr => pr.id === id);
+        if(!p) return;
+        favs.push({ id: p.id, title: p.title, price: p.price, image: p.image });
+        localStorage.setItem('beytopazar-favs', JSON.stringify(favs));
+      }
+      renderProducts();
+    }
+
+    // Ürün ızgarasına delegasyon ile favori butonu tıklamalarını yakala
+    productGrid.addEventListener('click', (e) => {
+      const btn = e.target.closest('.fav-btn');
+      if(!btn) return;
+      const id = Number(btn.dataset.id || btn.closest('[data-id]')?.dataset.id);
+      if(!id) return;
+      toggleFav(id);
+    });
+
+    // Üstteki Favoriler butonu artık panel.html'e yönlendirir
+    document.getElementById('favoritesBtn').addEventListener('click', () => { window.location.href = 'panel.html'; });
+    document.getElementById('loginOverlay').addEventListener('click', (e) => { if(e.target.id === 'loginOverlay') closeLogin(); });
+    document.getElementById('detailOverlay').addEventListener('click', (e) => { if(e.target.id === 'detailOverlay') closeDetail(); });
+
+    renderAll();
+  </script>
+</body>
+</html>
